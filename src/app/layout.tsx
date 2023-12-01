@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import ThemeProvider from "@/theme/ThemeProvider";
+import { ThemeProvider } from "@/theme/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -20,12 +20,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <ThemeProvider>
-        <body className={`${poppins.className} dark:bg-black dark:text-white`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className={`${poppins.className} dark:bg-black dark:text-white`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
-        </body>
-      </ThemeProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
